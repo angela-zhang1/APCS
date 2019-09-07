@@ -1,1 +1,1 @@
-#A collection of stuff from my school computer science.
+# A collection of stuff from my school computer science.
