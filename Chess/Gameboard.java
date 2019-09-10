@@ -111,9 +111,15 @@ public class GameBoard extends JFrame{
 			if (squaretwo.getPiece().getColor() == nextColor) {
 				JOptionPane.showMessageDialog(this, "Moved from "+((char)(squaretwo.getCol() + 97)) + (8-squaretwo.getRow())  + " to " +((char)(whoGotClicked.getCol() + 97)) + (8-whoGotClicked.getRow()) + "." );
 				squaretwo.getPiece().move(whoGotClicked);
+				ChessPiece pie = whoGotClicked.getPiece();
 				for (int i = 0; i < 8; i++) {
 					for (int j = 0; j < 8; j++) {
 						this.getSquare(i,j).setHighlight(false);
+						if (pie!=null && pie.isMoveLegal(this.getSquare(i, j))) {
+							if (this.getSquare(i,j).getPiece() instanceof King) {
+								JOptionPane.showMessageDialog(this, "Check!");
+							}
+						}
 					}
 				}
 				nextColor = !(nextColor);
