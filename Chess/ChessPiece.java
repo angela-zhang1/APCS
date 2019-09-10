@@ -64,4 +64,3 @@ public abstract class ChessPiece {
 
 	public abstract char type();
 }
-
