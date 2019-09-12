@@ -18,7 +18,7 @@ public abstract class ChessPiece {
  
 		loadImage(im);
 		sqr = s;
-		bl = color;
+		bl = color; //true is black
 		//set up your other variables
 		
 	}//end constructor
@@ -56,6 +56,7 @@ public abstract class ChessPiece {
 		setSquare(dest);
 		moveYet = true;
 	}
+	
 	//public void setPiece(int locX, int locY, int sizeX, int sizeY) {
 	// g.drawImage(img,locX,locY,sizeX, sizeY,null,null);
 	//}
