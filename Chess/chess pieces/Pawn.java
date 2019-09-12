@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 public class Pawn extends ChessPiece{
 	public Pawn(String im, boolean tm, Square lc) {
 		super(im, tm, lc);
@@ -35,9 +37,7 @@ public class Pawn extends ChessPiece{
 					}
 				}
 			}
-			if (r== 0) {
-				
-			}
+			
 		}
 		else {
 			if (dest.getCol() == s.getCol()) {
@@ -61,8 +61,17 @@ public class Pawn extends ChessPiece{
 				}
 			}
 			if (r == 7) {
-				
+				Object o = JOptionPane.showInputDialog(null, "What do you want to be promoted to?", "Promotion"
+						, JOptionPane.QUESTION_MESSAGE, null
+						, new String[] {"Queen","Rook","Bishop","Knight"}, "Queen");
+				if (o.equals("Queen")) {
+					
+				}
+				if (o.equals("Rook")) {}
+				if (o.equals("Bishop")) {}
+				if (o.equals("Knight")) {}	
 			}
+			
 		}
 		return false;
 	}
