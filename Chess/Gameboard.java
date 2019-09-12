@@ -108,19 +108,44 @@ public class GameBoard extends JFrame{
 			}
 		}
 		else {
+			boolean check = false;
 			if (squaretwo.getPiece().getColor() == nextColor) {
 				JOptionPane.showMessageDialog(this, "Moved from "+((char)(squaretwo.getCol() + 97)) + (8-squaretwo.getRow())  + " to " +((char)(whoGotClicked.getCol() + 97)) + (8-whoGotClicked.getRow()) + "." );
 				squaretwo.getPiece().move(whoGotClicked);
 				ChessPiece pie = whoGotClicked.getPiece();
+				if (pie.type() == 'P') {
+					if (pie.getColor() && whoGotClicked.getRow() == 0) {
+		
+						Object o = JOptionPane.showInputDialog(null, "What do you want to be promoted to?", "Promotion"
+								, JOptionPane.QUESTION_MESSAGE, null
+								, new String[] {"Queen","Rook","Bishop","Knight"}, "Queen");
+						if (o.equals("Queen")) {
+							
+						}
+						if (o.equals("Rook")) {
+							
+						}
+						if (o.equals("Bishop")) {
+							
+						}
+						if (o.equals("Knight")) {
+							
+						}	
+					}
+					else if (!pie.getColor() && whoGotClicked.getRow() == 7) {}
+				}
 				for (int i = 0; i < 8; i++) {
 					for (int j = 0; j < 8; j++) {
 						this.getSquare(i,j).setHighlight(false);
 						if (pie!=null && pie.isMoveLegal(this.getSquare(i, j))) {
 							if (this.getSquare(i,j).getPiece() instanceof King) {
-								JOptionPane.showMessageDialog(this, "Check!");
+								check = true;
 							}
 						}
 					}
+				}
+				if (check) {
+					JOptionPane.showMessageDialog(this, "Check!");
 				}
 				nextColor = !(nextColor);
 				squaretwo = null;
