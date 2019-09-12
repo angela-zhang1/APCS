@@ -54,16 +54,32 @@ public class Square extends JPanel implements MouseListener{
 		return col;
 	}
 	
-	public boolean attacked() {
+	public int attacked() {
+		boolean blackattacked = false;
+		boolean whiteattacked = false;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				ChessPiece x = GameBoard.getSquare(i,j).getPiece();
 				if (x!=null && x.isMoveLegal(this)) {
-					return true;
+					if (x.getColor()) {
+						blackattacked = true;
+					}
+					else {
+						whiteattacked = true;
+					}
 				}
 			}
 		}
-		return false;
+		if (blackattacked && whiteattacked) {
+			return 2;
+		}
+		else if (blackattacked) {
+			return 1;
+		}
+		else if (whiteattacked) {
+			return -1;
+		}
+		return 0;
 	}
 
 	public void paintComponent(Graphics g){
