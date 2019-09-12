@@ -30,7 +30,7 @@ public class King extends ChessPiece{
 		return 'K';
 	}
 	public void move (Square dest) {
-		if (dest.attacked()== false) {
+		if (dest.attacked() == 0 ||(dest.attacked() == 1 &&this.getColor()) || (dest.attacked() == -1 &&!this.getColor())) {
 			if (this.isMoveLegal(dest) ) {
 				if (GameBoard.getSquare(s.getRow(), s.getCol() + 3).getPiece().type() == 'R' && dest.getCol() == s.getCol() + 2) {
 					Square rookSquare = GameBoard.getSquare(s.getRow(),s.getCol() + 3);
