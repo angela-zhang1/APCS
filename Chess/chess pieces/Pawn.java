@@ -1,6 +1,7 @@
 import javax.swing.JOptionPane;
 
 public class Pawn extends ChessPiece{
+	private boolean enpassant;
 	public Pawn(String im, boolean tm, Square lc) {
 		super(im, tm, lc);
 		//System.out.println("Aaron Lin is an idiot.");
@@ -29,11 +30,13 @@ public class Pawn extends ChessPiece{
 			}
 			if (dest.getCol() == s.getCol() - 1 || dest.getCol() == s.getCol() + 1) {
 				if (dest.getRow() == s.getRow()-1) {
-					if (dest.getPiece()!= null && dest.getPiece().getColor() != this.getColor()) {
+					if (dest.getPiece()!= null && dest.getPiece().getColor() != this.getColor()) { //capture
 						return true;
 					}
-					if (GameBoard.getSquare(dr+1, dc).getPiece()!=null) {//very next turn? en passant
-						
+					else if (s.getRow() == 4) {//very next turn? en passant
+						if (dest.getPiece().type() == 'P') {
+							enpassant = true;
+						}
 					}
 				}
 			}
@@ -41,37 +44,28 @@ public class Pawn extends ChessPiece{
 		}
 		else {
 			if (dest.getCol() == s.getCol()) {
-				if (!this.getMove() && (dest.getRow() < s.getRow() + 3) && dest.getRow() > s.getRow()) {
+				if (!this.getMove() && (dest.getRow() < s.getRow() + 3) && dest.getRow() > s.getRow()) { //first turn
 					if (dest.getPiece()==null && GameBoard.getSquare(r+1, c).getPiece() == null) {
 						return true;
 					}
 				}
-				if (dest.getRow() == s.getRow() +1  && dest.getCol() == s.getCol()) {
+				if (dest.getRow() == s.getRow() +1  && dest.getCol() == s.getCol()) { //move one forward
 					if (dest.getPiece()==null) {
 						return true;
 					}
 				}
 				
 			}
-			if (dest.getCol() == s.getCol() - 1 || dest.getCol() == s.getCol() + 1) {
+			if (dest.getCol() == s.getCol() - 1 || dest.getCol() == s.getCol() + 1) { 
 				if (dest.getRow() == s.getRow()+1) {
-					if (dest.getPiece()!= null && dest.getPiece().getColor() != this.getColor()) {
+					if (dest.getPiece()!= null && dest.getPiece().getColor() != this.getColor()) { //capture
 						return true;
 					}
 				}
-			}
-			if (r == 7) {
-				Object o = JOptionPane.showInputDialog(null, "What do you want to be promoted to?", "Promotion"
-						, JOptionPane.QUESTION_MESSAGE, null
-						, new String[] {"Queen","Rook","Bishop","Knight"}, "Queen");
-				if (o.equals("Queen")) {
+				else if (GameBoard.getSquare(dr-1, dc).getPiece()!=null) {//very next turn? en passant
 					
 				}
-				if (o.equals("Rook")) {}
-				if (o.equals("Bishop")) {}
-				if (o.equals("Knight")) {}	
 			}
-			
 		}
 		return false;
 	}
@@ -82,6 +76,7 @@ public class Pawn extends ChessPiece{
 		if (this.isMoveLegal(dest) ) {
 			super.move(dest);
 			System.out.println("Aaron Lin is an idiot.");
+			enpassant = false;
 		}
 	}
 }
