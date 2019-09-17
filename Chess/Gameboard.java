@@ -3,7 +3,6 @@ import javax.swing.*;
 public class GameBoard extends JFrame{
 	/*
 	TO DO:
-	- code en passant
 	- improve castling
 	- improve check
 	- code checkmate 
@@ -85,6 +84,9 @@ public class GameBoard extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
+	public static Square getSquare1 () {
+		return squareone;
+	}
  
 	//one of the squares will call this function to tell the board it was clicked
 	public void clicked(Square whoGotClicked){
@@ -109,60 +111,63 @@ public class GameBoard extends JFrame{
 				JOptionPane.showMessageDialog(this, "Moved from "+((char)(squaretwo.getCol() + 97)) + (8-squaretwo.getRow())  + " to " +((char)(whoGotClicked.getCol() + 97)) + (8-whoGotClicked.getRow()) + "." );
 				squaretwo.getPiece().move(whoGotClicked);
 				ChessPiece pie = whoGotClicked.getPiece();
-				if (pie.type() == 'P') {
-					if ((pie.getColor() && whoGotClicked.getRow() == 7) || (!pie.getColor() && whoGotClicked.getRow() == 0)) {
-						Object o = JOptionPane.showInputDialog(null, "What do you want to be promoted to?", "Promotion"
-								, JOptionPane.QUESTION_MESSAGE, null
-								, new String[] {"Queen","Rook","Bishop","Knight"}, "Queen");
-						whoGotClicked.setPiece(null);
-						if (o.equals("Queen")) {
-							if (pie.getColor()) {
-								pie = new Queen("./blackqueen.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
+				if (whoGotClicked.getPiece()!=null) {
+					nextColor = !(nextColor);
+					if (pie!=null && pie.type() == 'P') {
+						if ((pie.getColor() && whoGotClicked.getRow() == 7) || (!pie.getColor() && whoGotClicked.getRow() == 0)) {
+							Object o = JOptionPane.showInputDialog(null, "What do you want to be promoted to?", "Promotion"
+									, JOptionPane.QUESTION_MESSAGE, null
+									, new String[] {"Queen","Rook","Bishop","Knight"}, "Queen");
+							whoGotClicked.setPiece(null);
+							if (o.equals("Queen")) {
+								if (pie.getColor()) {
+									pie = new Queen("./blackqueen.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
+								else { 
+									pie = new Queen("./whitequeen.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
 							}
-							else { 
-								pie = new Queen("./whitequeen.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
+							if (o.equals("Rook")) {
+								if (pie.getColor()) {
+									pie = new Rook("./blackrook.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
+								else { 
+									pie = new Rook("./whiterook.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
 							}
+							if (o.equals("Bishop")) {
+								if (pie.getColor()) {
+									pie = new Bishop("./blackbishop.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
+								else { 
+									pie = new Bishop("./whitebishop.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
+							}
+							if (o.equals("Knight")) {
+								if (pie.getColor()) {
+									pie = new Knight("./blackknight.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
+								else { 
+									pie = new Knight("./whiteknight.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
+									pie.setSquare(whoGotClicked);
+									whoGotClicked.setPiece(pie);
+								}
+							}	
 						}
-						if (o.equals("Rook")) {
-							if (pie.getColor()) {
-								pie = new Rook("./blackrook.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
-							}
-							else { 
-								pie = new Rook("./whiterook.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
-							}
-						}
-						if (o.equals("Bishop")) {
-							if (pie.getColor()) {
-								pie = new Bishop("./blackbishop.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
-							}
-							else { 
-								pie = new Bishop("./whitebishop.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
-							}
-						}
-						if (o.equals("Knight")) {
-							if (pie.getColor()) {
-								pie = new Knight("./blackknight.png", true, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
-							}
-							else { 
-								pie = new Knight("./whiteknight.png", false, arr[whoGotClicked.getRow()][whoGotClicked.getCol()]);
-								pie.setSquare(whoGotClicked);
-								whoGotClicked.setPiece(pie);
-							}
-						}	
 					}
 				}
 				for (int i = 0; i < 8; i++) {
@@ -178,8 +183,9 @@ public class GameBoard extends JFrame{
 				if (check) {
 					JOptionPane.showMessageDialog(this, "Check!");
 				}
-				nextColor = !(nextColor);
+				squareone = squaretwo;
 				squaretwo = null;
+				
 			}
 			else {
 				JOptionPane.showMessageDialog(this, "You clicked at "+((char)(whoGotClicked.getCol() + 97)) + (8-whoGotClicked.getRow()) + ".");
