@@ -3,7 +3,6 @@ import javax.swing.*;
 public class GameBoard extends JFrame{
 	/*
 	TO DO:
-	- improve castling
 	- improve check
 	- code checkmate 
 	*/
