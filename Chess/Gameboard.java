@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.Arrays;
+
 import javax.swing.*;
 public class GameBoard extends JFrame{
 	/*
@@ -13,6 +15,9 @@ public class GameBoard extends JFrame{
 	private static Square squareone;
 	private static Square squaretwo;
 	private static boolean nextColor = false;
+	boolean check = false;
+	boolean turn = true;
+	int[] kingSquare = {-1,-1};
 	public GameBoard(){
 		super("CHESS");
 		boolean x;
@@ -105,12 +110,30 @@ public class GameBoard extends JFrame{
 			}
 		}
 		else {
-			boolean check = false;
+			
+			//boolean whichColor = false;
 			if (squaretwo.getPiece().getColor() == nextColor) {
 				JOptionPane.showMessageDialog(this, "Moved from "+((char)(squaretwo.getCol() + 97)) + (8-squaretwo.getRow())  + " to " +((char)(whoGotClicked.getCol() + 97)) + (8-whoGotClicked.getRow()) + "." );
 				squaretwo.getPiece().move(whoGotClicked);
+				if (check) {
+					check = false;
+					for (int i = 0; i < 8; i++) {
+						for (int j = 0; j < 8; j++) {
+							if (this.getSquare(i, j).getPiece()!=null &&kingSquare[0]!=-1
+									&& this.getSquare(i, j).getPiece().isMoveLegal(this.getSquare(kingSquare[0], kingSquare[1]))) {
+										check = true;
+										turn = false;
+									}
+						}
+					}
+					
+				}
 				ChessPiece pie = whoGotClicked.getPiece();
-				if (whoGotClicked.getPiece()!=null) {
+				if (!turn) {
+					whoGotClicked.getPiece().move(squaretwo);
+				}
+				if (whoGotClicked.getPiece()!=null && turn) {
+					Arrays.fill(kingSquare, -1);
 					nextColor = !(nextColor);
 					if (pie!=null && pie.type() == 'P') {
 						if ((pie.getColor() && whoGotClicked.getRow() == 7) || (!pie.getColor() && whoGotClicked.getRow() == 0)) {
@@ -175,6 +198,8 @@ public class GameBoard extends JFrame{
 						if (pie!=null && pie.isMoveLegal(this.getSquare(i, j))) {
 							if (this.getSquare(i,j).getPiece() instanceof King) {
 								check = true;
+								kingSquare[0] = i;
+								kingSquare[1] = j;
 							}
 						}
 					}
