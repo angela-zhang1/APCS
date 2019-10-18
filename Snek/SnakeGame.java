@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -117,7 +118,7 @@ public abstract class SnakeGame extends JPanel{
 	public void playGame(){
 		while(true){
 			gameFrame();
-			pause(waitSeconds*1000);
+			pause(waitSeconds*100);
 		}
 	}
 	
