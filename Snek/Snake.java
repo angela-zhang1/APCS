@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.*;
@@ -80,14 +81,22 @@ public class Snake implements KeyListener{
 	@Override
 	//make the snake respond to key presses
 	public void keyPressed(KeyEvent e) {	
-		if(e.getKeyCode() == KeyEvent.VK_UP)
+		if(e.getKeyCode() == KeyEvent.VK_UP) {
+			direction = UP;
 			System.out.println("User pressed up");
-		if(e.getKeyCode() == KeyEvent.VK_DOWN)
+		}
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 			System.out.println("User pressed up");
-		if(e.getKeyCode() == KeyEvent.VK_LEFT)
+			direction = DOWN;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 			System.out.println("User pressed up");
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+			direction = LEFT;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			System.out.println("User pressed up");
+			direction = RIGHT;
+		}
 	}
 
 	@Override
