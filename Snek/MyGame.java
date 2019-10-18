@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 
 import javax.swing.JOptionPane;
@@ -16,7 +17,10 @@ public class MyGame extends SnakeGame{
 	}
 	
 	public void gameFrame(){		
-			//add bodysegment in direction		
+			//add bodysegment in direction
+			player.addFirst();
+			player.removeLast();
+			System.out.println(player.size());
 			drawGame();//do this at some point			
 		
 	}
