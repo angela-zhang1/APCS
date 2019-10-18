@@ -15,7 +15,7 @@ public class Snake implements KeyListener{
 	public Snake(){
 		//go ahead and give him 1 BodySegment
 		//tell him what direction he is moving	
-		direction = RIGHT;
+		direction = DOWN;
 		this.addFirst();
 	}
 	
@@ -39,7 +39,8 @@ public class Snake implements KeyListener{
 		if (direction == LEFT) {firstNode = new BodySegment (x-BodySegment.SIZE, y, secondNode, null);}
 		if (direction == UP) {firstNode = new BodySegment (x, y-BodySegment.SIZE, secondNode, null);}
 		if (direction == DOWN) {firstNode = new BodySegment (x, y+BodySegment.SIZE, secondNode, null);}
-		
+		if (bs!=null)
+		secondNode.setPrevious(firstNode);
 		size++;
 		if (size == 1) {
 			lastNode = firstNode;
@@ -47,7 +48,9 @@ public class Snake implements KeyListener{
 	}
 	
 	public void removeLast(){
-		lastNode.previous.setNext(null);
+		if (size > 1) {
+			lastNode.previous.setNext(null);
+		}
 		if (size!=1) {
 			lastNode = lastNode.previous;
 		}
@@ -78,6 +81,12 @@ public class Snake implements KeyListener{
 	//make the snake respond to key presses
 	public void keyPressed(KeyEvent e) {	
 		if(e.getKeyCode() == KeyEvent.VK_UP)
+			System.out.println("User pressed up");
+		if(e.getKeyCode() == KeyEvent.VK_DOWN)
+			System.out.println("User pressed up");
+		if(e.getKeyCode() == KeyEvent.VK_LEFT)
+			System.out.println("User pressed up");
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 			System.out.println("User pressed up");
 	}
 
