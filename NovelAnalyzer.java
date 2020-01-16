@@ -12,6 +12,7 @@ public class NovelAnalyzer {
 		String FILENAME = "AliceInWonderLand.txt";
 		FILENAME = "./src/"+(String)JOptionPane.showInputDialog(null,"Which Novel?","Which Novel?",JOptionPane.QUESTION_MESSAGE, null, files, files[0]);
 		String[] toRemove = {".",",","!","?","\"","'s",";",":","(",")","--","'"};
+		int totalWords = 0;
 
 		try{
 			FileReader reader = new FileReader(FILENAME);
@@ -31,7 +32,12 @@ public class NovelAnalyzer {
 					while (st.hasMoreTokens()) {
 						word = st.nextToken();
 						if (!word.equals("s")) {
-
+							if (uniquewords.containsKey(word)) {
+								uniquewords.put(word, uniquewords.get(word) + 1);
+							}
+							else {
+								uniquewords.put(word, 1);
+							}
 						}
 					}
 				}
@@ -39,7 +45,7 @@ public class NovelAnalyzer {
 				line = buff.readLine();
 			}// done reading the file
 			buff.close();//close the file
-
+			for (int i = 0; i < uniquewords.size(); i++) {}
 
 		}//end try
 		catch(Exception ex){ex.printStackTrace();}
@@ -74,5 +80,22 @@ public class NovelAnalyzer {
 		return ans;
 
 	}
+	static class state implements Comparable<state> {
+		public String w;
+		public String f;
+		public state(String word, String freq) {
+			w = word;
+			f = freq;
+		}
+		public int compareTo(state o) {
+			if (f.compareTo(o.f) != 0)
+				return f.compareTo(o.f);
+			else if (w.compareTo(o.w)!=0) {
+				return w.compareTo(o.w);
+			}
+			return 0;
+		}
+	}
 
 }//end class
+
